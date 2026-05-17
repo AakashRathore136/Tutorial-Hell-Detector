@@ -8,11 +8,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, CheckCircle2, Flame, AlertOctagon, TerminalSquare, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { ShareModal } from "@/components/ShareModal";
 
 function ResultContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [entry, setEntry] = useState<HistoryEntry | null>(null);
+  const [isShareOpen, setIsShareOpen] = useState(false);
 
   useEffect(() => {
     const id = searchParams.get("id");
@@ -134,14 +136,18 @@ function ResultContent() {
           <Button onClick={() => router.push("/analyze")} size="lg" className="px-8">
             Analyze Again
           </Button>
-          <Button variant="outline" size="lg" onClick={() => {
-            navigator.clipboard.writeText(`My Tutorial Hell Score is ${scores.tutorialHellScore}/100. Verdict: ${diagnosis.verdict}`);
-            alert("Copied to clipboard!");
-          }}>
+          <Button variant="outline" size="lg" onClick={() => setIsShareOpen(true)}>
             Share Result
           </Button>
         </div>
       </motion.div>
+
+      {/* Share Modal Integration */}
+      <ShareModal 
+        isOpen={isShareOpen} 
+        onClose={() => setIsShareOpen(false)} 
+        result={entry} 
+      />
     </div>
   );
 }
