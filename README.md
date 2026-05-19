@@ -46,4 +46,4 @@ This project is Vercel-ready.
 1. Push your code to GitHub.
 2. Import the project in Vercel.
 3. Add `GEMINI_API_KEY` to the Environment Variables in the Vercel dashboard.
-4. Deploy!
+4. Deploy
